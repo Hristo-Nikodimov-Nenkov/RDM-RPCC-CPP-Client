@@ -30,12 +30,12 @@ jobs:
         arduino-cli compile \
           --fqbn esp32:esp32:esp32c3 \
           -e \
-          --output-dir firmware \
+          --output-dir ../firmware \
           ./src
 
     - name: Rename binary for release
       run: |
-        mv firmware/esp32.esp32c3/src.ino.bin "firmware/RDM_RPCC_${{env.BUILD_VERSION}}.bin"
+        mv ./firmware/esp32.esp32c3/src.ino.bin "./firmware/RDM_RPCC_${{env.BUILD_VERSION}}.bin"
 
     - name: Create Git tag
       id: tag
