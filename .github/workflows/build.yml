@@ -26,12 +26,12 @@ jobs:
         arduino-cli core install esp32:esp32
 
     - name: Compile firmware
-      working-directory: ./src
       run: |
         arduino-cli compile \
           --fqbn esp32:esp32:esp32c3 \
           -e \
-          --output-dir ../firmware
+          --output-dir firmware \
+          src/main.ino
 
     - name: Create Git tag
       id: tag
