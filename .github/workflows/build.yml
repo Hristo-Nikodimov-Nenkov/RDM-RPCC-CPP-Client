@@ -31,7 +31,11 @@ jobs:
           --fqbn esp32:esp32:esp32c3 \
           -e \
           --output-dir firmware \
-          src/main.ino
+          ./src/main.ino
+
+    - name: Rename binary for release
+      run: |
+        mv firmware/esp32.esp32c3/main.ino.bin "firmware/RDM_RPCC_${{env.BUILD_VERSION}}.bin"
 
     - name: Create Git tag
       id: tag
@@ -60,6 +64,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: firmware/esp32.esp32c3/main.ino.bin
+        asset_path: firmware/RDM_RPCC_${{env.BUILD_VERSION}}.bin
         asset_name: RDM_RPCC_${{env.BUILD_VERSION}}.bin
         asset_content_type: application/octet-stream
