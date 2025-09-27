@@ -35,13 +35,7 @@ jobs:
           .
 
     - name: Rename binary for release
-      run: |
-        if [ ! -f ./firmware/esp32.esp32c3/src.ino.bin ]; then
-          echo "ERROR: Compiled binary not found!"
-          find ./firmware -type f
-          exit 1
-        fi
-        mv ./firmware/esp32.esp32c3/src.ino.bin "./firmware/RDM_RPCC_${{ env.BUILD_VERSION }}.bin"
+      run: mv ./firmware/src.ino.bin "./firmware/RDM_RPCC_${{ env.BUILD_VERSION }}.bin"
 
     - name: Create Git tag
       id: tag
