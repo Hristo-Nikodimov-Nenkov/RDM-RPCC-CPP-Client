@@ -26,7 +26,8 @@ jobs:
         arduino-cli core install esp32:esp32
 
     - name: Compile firmware
-      working_directory: ./src
+      with:
+        working_directory: ./src
       run: |
         arduino-cli compile \
           --fqbn esp32:esp32:esp32c3 \
