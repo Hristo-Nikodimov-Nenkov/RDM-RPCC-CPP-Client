@@ -24,6 +24,7 @@ jobs:
       run: arduino-cli core update-index && arduino-cli core install esp32:esp32
 
     - name: Compile firmware
+      working-directory: ./src
       run: |
         arduino-cli compile --fqbn esp32:esp32:esp32c3 -e -b -o build_output
 
