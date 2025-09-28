@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "ConfigurationManager.h"
-#include "Display.h"
+#include "system/ConfigurationManager.h"
+#include "hardware/Display.h"
 #include "hardware/StatusStrip.h"
 #include "hardware/LedStatusPresets.h"
 
