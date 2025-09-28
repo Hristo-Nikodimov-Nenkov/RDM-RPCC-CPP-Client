@@ -1,66 +1,29 @@
 #pragma once
 
 #include <Arduino.h>
-#include <TaskScheduler.h>
 #include <Adafruit_SSD1306.h>
 
 class Display {
 public:
-    Display(uint8_t width = 128, uint8_t height = 64, TwoWire *wire = &Wire);
+    Display();
+    ~Display();
 
-    bool begin();
+    bool begin(uint16_t width, uint16_t height, uint8_t scl, uint8_t sda, uint8_t color = 1);
 
-    // Sync methods
-    void setCursor(uint8_t x, uint8_t y);
-    void print(const char* text);
-    void print(const String &text);
-
-    void drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h);
     void clear();
-    void update(); // replaces display()
+    void setTextColor(uint16_t color, uint16_t bg = 0);
+    void setCursor(int16_t x, int16_t y);
+    void print(const char* text);
+    void println(const char* text);
+    void update();
 
-    // Async methods
-    void printAsync(Scheduler &scheduler, const char* text);
-    void printAsync(Scheduler &scheduler, const String &text);
-
-    void drawBitmapAsync(Scheduler &scheduler, int16_t x, int16_t y,
-                         const uint8_t *bitmap, int16_t w, int16_t h);
-
-    void clearAsync(Scheduler &scheduler);
-    void updateAsync(Scheduler &scheduler); // replaces displayAsync
-
-    // Color handling
-    void setColor(uint16_t colorValue);
-    void setBackground(uint16_t bgValue);
+    uint16_t getWidth() const;
+    uint16_t getHeight() const;
 
 private:
-    Adafruit_SSD1306 oled;
-
-    uint8_t cursorX;
-    uint8_t cursorY;
-
-    uint16_t color = SSD1306_WHITE;
-    uint16_t background = SSD1306_BLACK;
-
-    // Async task and params
-    Task asyncTask;
-
-    enum class AsyncOperation {
-        None,
-        PrintText,
-        DrawBitmap,
-        Clear,
-        Update
-    } pendingOperation;
-
-    // For print async
-    String asyncText;
-
-    // For bitmap async
-    int16_t asyncX, asyncY, asyncW, asyncH;
-    const uint8_t *asyncBitmap;
-
-    static void asyncTaskCallback(Task*);
-    void runAsyncOperation();
-    void resetAsyncParams();
+    Adafruit_SSD1306* _display;
+    uint16_t _width;
+    uint16_t _height;
+    uint8_t _color;
+    uint8_t _background;
 };
