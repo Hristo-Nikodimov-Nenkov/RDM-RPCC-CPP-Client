@@ -2,7 +2,7 @@
 #include "system/ConfigurationManager.h"
 #include "hardware/Display.h"
 #include "hardware/StatusStrip.h"
-#include "hardware/LedStatusPresets.h"
+#include "hardware/LedStatuses.h"
 
 ConfigurationManager configManager;
 Display display;
