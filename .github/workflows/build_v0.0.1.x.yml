@@ -26,22 +26,15 @@ jobs:
         arduino-cli core install esp32:esp32
 
     - name: Compile firmware
-      working-directory: ./src
       run: |
         arduino-cli compile \
           --fqbn esp32:esp32:esp32c3 \
           -e \
-          --output-dir ../firmware \
+          --output-dir ./firmware \
           .
 
     - name: Rename binary for release
-      run: |
-        if [ ! -f ./firmware/src.ino.bin ]; then
-          echo "ERROR: Compiled binary not found!"
-          find ./firmware -type f
-          exit 1
-        fi
-        mv ./firmware/src.ino.bin "./firmware/RDM_RPCC_${{ env.BUILD_VERSION }}.bin"
+      run: mv ./firmware/RDM-RPCC-CPP-Client.ino.bin "./firmware/RDM_RPCC_${{ env.BUILD_VERSION }}.bin"
 
     - name: Create Git tag
       id: tag
